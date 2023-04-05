@@ -42,7 +42,7 @@ public class Workspace extends Gmail{
         }
 
         for(int i=1; i< calendar.size(); i++){
-            if(calendar.get(i).getStartTime().compareTo(limit)>0)
+            if(calendar.get(i).getStartTime().compareTo(limit)<0)
             {
                 maxMeeting++;
                 limit=calendar.get(i).getEndTime();
