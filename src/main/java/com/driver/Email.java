@@ -1,12 +1,9 @@
 package com.driver;
 
-import java.util.List;
-
 public class Email {
 
     private String emailId;
     private String password;
-
 
     public Email(String emailId){
         this.emailId = emailId;
@@ -27,34 +24,40 @@ public class Email {
         // 2. It contains at least one uppercase letter
         // 3. It contains at least one lowercase letter
         // 4. It contains at least one digit
-        // 5. It contains at least one special character. Any character apart from alphabets and digits is a special characte
-        if (oldPassword!=password){
-            return;
+        // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
+
+        if(oldPassword.equals(this.password))
+        {
+            if(newPassword.length() >= 8 && isValid(newPassword))
+                this.password = newPassword;
         }
-        boolean uppercase =false;
-        boolean lowecase =false;
+    }
+
+    public boolean isValid(String password)
+    {
+        boolean upperCase = false;
+        boolean lowerCase = false;
         boolean digit = false;
-        boolean special = false;
-        if (newPassword.length()<8){
-            return;
-        }
-        for (int i=0;i<newPassword.length();i++){
-            char c = newPassword.charAt(i);
-            if (c>='A' && c<='Z'){
-                uppercase=true;
-            }
-            else if(c>='a' && c<='z'){
-                lowecase=true;
-            }
-            else if (c>=0 && c<=9){
-                digit=true;
-            }else{
-                special=true;
-            }
-        }
-        if(uppercase==true && lowecase==true && digit==true && special==true){
-            password=newPassword;
+        boolean specialCharacter = false;
+
+        for(int i=0;i<password.length();i++)
+        {
+            char ch = password.charAt(i);
+
+            if(Character.isUpperCase(ch))
+                upperCase = true;
+            if(Character.isLowerCase(ch))
+                lowerCase = true;
+            if(Character.isDigit(ch))
+                digit = true;
+            if(!Character.isDigit(ch) && !Character.isLetter(ch) && !Character.isWhitespace(ch))
+                specialCharacter = true;
         }
 
-                   }
+        if(upperCase && lowerCase && digit && specialCharacter)
+            return true;
+
+        return false;
+    }
+
 }
